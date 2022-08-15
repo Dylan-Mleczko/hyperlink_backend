@@ -1,0 +1,15 @@
+node_modules/
+config/development*
+globalConfig.json
+
+*.log
+logs/
+
+tmp/
+.env
+.vscode/
+globalConfig.json
+
+dist/
+
+.DS_Store
