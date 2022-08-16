@@ -1,0 +1,7 @@
+{
+  "cacheDirectory": "tmp/jest/",
+  "verbose": true,
+  "preset": "@shelf/jest-mongodb",
+  "unmockedModulePathPatterns": ["<rootDir>/node_modules"],
+  "testMatch": ["**/tests/**/?(*.)+(spec|test).js?(x)"]
+}
