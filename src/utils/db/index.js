@@ -50,4 +50,4 @@ export const disconnect = async (conn) => {
   console.log('Database disconnected');
 };
 
-// export default { disconnect, connect };
+// export { disconnect, connect };

@@ -1,18 +1,21 @@
 import config from 'config';
 import express from 'express';
 import cors from 'cors';
+// import passport from 'passport';
 import { connect } from './utils/db';
 
-// import appRoutes from './web';
+import { routes } from './web/api/routes';
 
 const PORT = 3000;
 
 const app = express();
 app.use(cors()); // Enable All CORS Requests
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 
-// appRoutes.clinician.forEach((route) => {
-//   app.use(route);
-// });
+routes.forEach((route) => {
+  app.use(route.router);
+});
 
 console.log(config.db.uri);
 

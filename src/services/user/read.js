@@ -27,6 +27,11 @@ export const readByEmail = async (email) => {
   return user;
 };
 
+export const readAll = async () => {
+  const users = await User.find();
+  return users;
+};
+
 export const readByJTI = async (jti) => {
   const user = await User.findOne({ jti, active: true });
 

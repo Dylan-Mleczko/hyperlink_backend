@@ -1,0 +1,8 @@
+**/*.js
+!tests/**
+!src/models/**
+!src/services/**
+!src/web/**
+!src/utils/**
+!src/**
+

@@ -1,14 +1,6 @@
-const { create, validate } = require('./create');
-const { readById, readByEmail, readByJTI } = require('./read');
-const { deleteById } = require('./delete');
-const { update } = require('./update');
+import { create, validate } from './create';
+import { readById, readByEmail, readByJTI, readAll } from './read';
+import { deleteById } from './delete';
+import { update } from './update';
 
-module.exports = {
-  create,
-  validate,
-  readById,
-  readByEmail,
-  deleteById,
-  update,
-  readByJTI,
-};
+export { create, validate, readById, readByEmail, deleteById, update, readByJTI, readAll };

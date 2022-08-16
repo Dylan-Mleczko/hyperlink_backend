@@ -1,2 +1,2 @@
 import { connect, disconnect } from './db';
-export default { connect, disconnect };
+export { connect, disconnect };

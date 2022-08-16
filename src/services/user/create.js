@@ -15,7 +15,7 @@ export const validate = async (loginInfo) => {
 
 export const create = async ({ email, first_name, last_name, password, active = true }) => {
   let hashedPassword = password;
-  console.log(password);
+  // console.log(password);
   const isHashed = await isHashedPassword(password);
   if (!isHashed) {
     hashedPassword = await hashPassword(password);
