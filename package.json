@@ -9,7 +9,8 @@
     "debug": "cross-env NODE_ENV=development NODE_PATH=./src ./node_modules/.bin/nodemon --exec babel-node -- src/index.js",
     "start": "nodemon --exec npm run babel-node -- src/index.js",
     "lint": "./node_modules/.bin/eslint src/",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "jest": "jest --config .jestrc.json --runInBand"
   },
   "author": "Kelsey",
   "license": "ISC",

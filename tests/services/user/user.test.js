@@ -1,31 +1,15 @@
 import config from 'config';
-import mongoose from 'mongoose';
-import { connect } from '../../../src/utils';
+import '../../utils/db_test_setup_teardown';
 
 import { User } from '../../../src/models';
 import * as userService from '../../../src/services/user';
 import * as authService from '../../../src/services/auth';
 
 describe('UserService', () => {
-  let connection = null;
   let user1 = null;
   let user2 = null;
   let user1Info = {};
   let user2Info = {};
-
-  beforeAll(async () => {
-    console.log(config.testing.db.uri);
-    connection = await connect(config.testing.db.uri);
-    console.log(
-      `Jest ${config.server.name} connected to ${connection.host}:${connection.port}/${connection.name}`
-    );
-  });
-
-  afterAll(async () => {
-    await connection.dropDatabase();
-    await mongoose.disconnect();
-    await connection.close();
-  });
 
   test('Create User - plaintext password', async () => {
     const userPassword = config.testing.user.login.password;
