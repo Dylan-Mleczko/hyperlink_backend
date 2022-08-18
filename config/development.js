@@ -9,7 +9,7 @@ module.exports = {
   },
   db: {
     name: 'Local MongoDB',
-    uri: 'mongodb+srv://kelsey:l4RsWg5l6clO5LZN@devop.othyzkx.mongodb.net/?retryWrites=true&w=majority',
+    uri: 'mongodb+srv://hyperlink:dktkl3001@cluster0.vufvthw.mongodb.net/?retryWrites=true&w=majority',
   },
   secrets: {
     jwtPrivateKey: 'unsecureKey',
@@ -18,7 +18,7 @@ module.exports = {
   test: {
     db: {
       name: 'MongoDB',
-      uri: 'mongodb+srv://kelsey:l4RsWg5l6clO5LZN@devop.othyzkx.mongodb.net/?retryWrites=true&w=majority',
+      uri: 'mongodb+srv://hyperlink:dktkl3001@cluster0.vufvthw.mongodb.net/?retryWrites=true&w=majority',
     },
   },
 };

@@ -41,7 +41,7 @@ export const registerUser = async (req, res) => {
   });
   if (newUser == null) {
     res.status(422).json({
-      message: 'fail to create user',
+      message: 'failed to create user',
       data: null,
     });
     return;

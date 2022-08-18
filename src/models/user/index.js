@@ -3,7 +3,6 @@ import { nanoid } from 'nanoid';
 
 const userSchema = new Schema(
   {
-    // _id: Schema.Types.ObjectId,
     name: {
       first: {
         type: String,

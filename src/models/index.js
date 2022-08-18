@@ -1,3 +1,6 @@
 import { User } from './user';
+import { Collection } from './collection';
+import { Link } from './link';
+import { Tag } from './tag';
 
-export { User };
+export { User, Collection, Link, Tag };
