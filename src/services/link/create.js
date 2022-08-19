@@ -6,6 +6,7 @@ export const validate = async (linkInfo) => {
   const schema = Joi.object({
     uri: Joi.string().min(5).max(255).required().uri(),
     name: Joi.string().min(3).max(31).required(),
+    collection_id: Joi.string(),
   });
 
   return schema.validate(linkInfo);
