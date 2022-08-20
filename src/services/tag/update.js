@@ -16,6 +16,5 @@ export const update = async (tagId, props) => {
   await tag.save();
 
   const updatedTag = await Tag.findById(tagId);
-
   return updatedTag;
 };

@@ -45,3 +45,18 @@ export const getAllLink = async (req, res) => {
   const links = await linkService.readAll();
   res.json({ data: { links } });
 };
+
+export const getLink = async (req, res) => {
+  const link = await linkService.readById(req.params.id);
+  res.json({ data: { link } });
+};
+
+export const updateLink = async (req, res) => {
+  const newLink = await linkService.update(req.params.id, req.body.linkDetails);
+  res.json({ data: { newLink } });
+};
+
+export const deleteLink = async (req, res) => {
+  const newLink = await linkService.deleteById({ linkId: req.params.id });
+  res.json({ data: { newLink } });
+};

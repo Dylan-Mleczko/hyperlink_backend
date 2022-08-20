@@ -25,6 +25,10 @@ export const update = async (collectionId, props) => {
     collection.image = props.image;
   }
 
+  if (props.favourite) {
+    collection.favourite = props.favourite;
+  }
+
   await collection.save();
 
   const updatedCollection = await Collection.findById(collectionId);

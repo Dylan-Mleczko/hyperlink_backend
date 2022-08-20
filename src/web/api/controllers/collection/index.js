@@ -41,7 +41,23 @@ export const registerCollection = async (req, res) => {
   res.json({ data: { collection: newCollection } });
 };
 
-export const getAllCollection = async (req, res) => {
+export const getAllCollection = async (_, res) => {
   const collections = await collectionService.readAll();
   res.json({ data: { collections } });
+};
+
+export const getCollection = async (req, res) => {
+  const collection = await collectionService.readById(req.params.id);
+  res.json({ data: { collection } });
+};
+
+export const updateCollection = async (req, res) => {
+  console.log(req.params.id);
+  const newCollection = await collectionService.update(req.params.id, req.body.collectionDetails);
+  res.json({ data: { newCollection } });
+};
+
+export const deleteCollection = async (req, res) => {
+  const newCollection = await collectionService.deleteById({ collectionId: req.params.id });
+  res.json({ data: { newCollection } });
 };
