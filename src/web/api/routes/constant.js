@@ -17,6 +17,9 @@ const deleteCollectionRouterPath = root + '/collection/:id';
 
 const newLinkRouterPath = root + '/link/new';
 const allLinkRouterPath = root + '/link/all';
+const getLinkRouterPath = root + '/link/:id';
+const updateLinkRouterPath = root + '/link/:id';
+const deleteLinkRouterPath = root + '/link/:id';
 
 const newTagRouterPath = root + '/tag/new';
 const allTagRouterPath = root + '/tag/all';
@@ -36,6 +39,9 @@ export {
   deleteCollectionRouterPath,
   newLinkRouterPath,
   allLinkRouterPath,
+  getLinkRouterPath,
+  updateLinkRouterPath,
+  deleteLinkRouterPath,
   newTagRouterPath,
   allTagRouterPath,
 };
