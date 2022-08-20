@@ -23,6 +23,9 @@ const deleteLinkRouterPath = root + '/link/:id';
 
 const newTagRouterPath = root + '/tag/new';
 const allTagRouterPath = root + '/tag/all';
+const getTagRouterPath = root + '/tag/:id';
+const updateTagRouterPath = root + '/tag/:id';
+const deleteTagRouterPath = root + '/tag/:id';
 
 export {
   loginRouterPath,
@@ -44,4 +47,7 @@ export {
   deleteLinkRouterPath,
   newTagRouterPath,
   allTagRouterPath,
+  getTagRouterPath,
+  updateTagRouterPath,
+  deleteTagRouterPath,
 };

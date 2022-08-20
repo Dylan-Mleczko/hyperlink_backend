@@ -37,7 +37,22 @@ export const registerTag = async (req, res) => {
   res.json({ data: { tag: newTag } });
 };
 
-export const getAllTag = async (req, res) => {
+export const getAllTag = async (_, res) => {
   const tags = await tagService.readAll();
   res.json({ data: { tags } });
+};
+
+export const getTag = async (req, res) => {
+  const tag = await tagService.readById(req.params.id);
+  res.json({ data: { tag } });
+};
+
+export const updateTag = async (req, res) => {
+  const newTag = await tagService.update(req.params.id, req.body.tagDetails);
+  res.json({ data: { newTag } });
+};
+
+export const deleteTag = async (req, res) => {
+  const newTag = await tagService.deleteById({ tagId: req.params.id });
+  res.json({ data: { newTag } });
 };
