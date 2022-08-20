@@ -55,6 +55,7 @@ export const getAllUser = async (_, res) => {
   res.json({ data: { users } });
 };
 
+
 export const getUser = async (req, res) => {
   const user = await userService.readById(req.params.id);
   res.json({ data: { user } });
@@ -68,4 +69,21 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const newUser = await userService.deleteById({ userId: req.params.id });
   res.json({ data: { newUser } });
+
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body.data;
+
+  const dummyUser = { name: 'test' };
+
+  if (!email || !password) {
+    return res.status(401).json('Incorrect form of submission');
+  }
+
+  // Remove the dummy ifs and Add check for user from db and compare passwords with bcrypt, as we would not be storing passwords in db rather hashes, upon doing that get the user returned by the db and res.send that user instead of dummy user
+  if (email == 'test@test.com' && password == '12345678') {
+    return res.send(dummyUser);
+  } else {
+    res.status(401).json('Invalid Email or Password');
+  }
+
 };
