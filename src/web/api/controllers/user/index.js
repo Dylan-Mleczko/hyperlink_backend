@@ -50,7 +50,22 @@ export const registerUser = async (req, res) => {
   res.json({ data: { user: newUser } });
 };
 
-export const getAllUser = async (req, res) => {
+export const getAllUser = async (_, res) => {
   const users = await userService.readAll();
   res.json({ data: { users } });
+};
+
+export const getUser = async (req, res) => {
+  const user = await userService.readById(req.params.id);
+  res.json({ data: { user } });
+};
+
+export const updateUser = async (req, res) => {
+  const newUser = await userService.update(req.params.id, req.body.userDetails);
+  res.json({ data: { newUser } });
+};
+
+export const deleteUser = async (req, res) => {
+  const newUser = await userService.deleteById({ userId: req.params.id });
+  res.json({ data: { newUser } });
 };

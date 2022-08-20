@@ -5,6 +5,9 @@ const logoutRouterPath = root + '/logout';
 
 const newUserRouterPath = root + '/user/new';
 const allUserRouterPath = root + '/user/all';
+const getUserRouterPath = root + '/user/:id';
+const updateUserRouterPath = root + '/user/:id';
+const deleteUserRouterPath = root + '/user/:id';
 
 const newCollectionRouterPath = root + '/collection/new';
 const allCollectionRouterPath = root + '/collection/all';
@@ -20,6 +23,9 @@ export {
   logoutRouterPath,
   newUserRouterPath,
   allUserRouterPath,
+  getUserRouterPath,
+  updateUserRouterPath,
+  deleteUserRouterPath,
   newCollectionRouterPath,
   allCollectionRouterPath,
   newLinkRouterPath,
