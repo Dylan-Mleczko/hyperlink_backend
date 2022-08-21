@@ -13,7 +13,6 @@ module.exports = {
   },
   secrets: {
     jwtPrivateKey: 'unsecureKey',
-    requiresAuth: true,
   },
   test: {
     db: {
