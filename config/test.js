@@ -12,7 +12,6 @@ module.exports = {
   },
   secrets: {
     jwtPrivateKey: "unsecureKey",
-    requiresAuth: false,
   },
   testing: {
      user: {

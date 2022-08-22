@@ -1,7 +1,8 @@
 import config from 'config';
 import express from 'express';
 import cors from 'cors';
-// import passport from 'passport';
+import passport from 'passport';
+import { middlewarePassport } from './web/middleware/passport';
 import { connect } from './utils/db';
 
 import { routes } from './web/api/routes';
@@ -13,6 +14,21 @@ app.use(cors()); // Enable All CORS Requests
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 
+// use passport for authentication
+console.log('Passport initialize');
+app.use(passport.initialize()); // passport init
+
+console.log('Middleware passport enable');
+middlewarePassport(passport);
+app.use((req, res, next) => {
+  req.passport = passport;
+  if (req.method === 'OPTIONS') {
+    res.send(200);
+  }
+  next();
+});
+
+// use all api routes
 routes.forEach((route) => {
   app.use(route.router);
 });

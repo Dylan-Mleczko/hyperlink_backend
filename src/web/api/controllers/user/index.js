@@ -1,4 +1,5 @@
 import * as userService from '../../../../services/user';
+import { auth, revokeToken } from '../../../../services/auth';
 import Joi from 'joi';
 
 export const registerUser = async (req, res) => {
@@ -55,7 +56,6 @@ export const getAllUser = async (_, res) => {
   res.json({ data: { users } });
 };
 
-
 export const getUser = async (req, res) => {
   const user = await userService.readById(req.params.id);
   res.json({ data: { user } });
@@ -69,6 +69,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const newUser = await userService.deleteById({ userId: req.params.id });
   res.json({ data: { newUser } });
+};
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body.data;
@@ -85,5 +86,40 @@ export const loginUser = async (req, res) => {
   } else {
     res.status(401).json('Invalid Email or Password');
   }
+};
 
+export const login = async (req, res) => {
+  // const ip = req.ip.match(/\d+\.\d+\.\d+\.\d+/);
+  console.log('IP:' + req.ip);
+  // logger.debug('', req.body);
+  console.log(req.body);
+  const authResult = await auth({
+    email: req.body.email,
+    password: req.body.password,
+  });
+  console.log('--- User Authentication ---');
+  if (authResult.token) {
+    const user = authResult.user;
+    console.log(`Authentication success. Email: ${req.body.email}, Token:${authResult.token}`);
+    res.cookie('token', authResult.token, { httpOnly: true });
+
+    return res.status(200).json({ user: { name: user.name, email: user.email, id: user._id } });
+  } else {
+    // 401，Authorization Fail
+    console.log(
+      `Authentication fail. Email: ${req.body.email}, Password: ${req.body.password}, ErrorMessage: ${authResult.errorMessage}`
+    );
+    return res.status(401).json({
+      error: 'Unauthorized',
+      message: authResult.errorMessage,
+    });
+  }
+};
+
+export const logout = async (req, res) => {
+  console.log('--- User Router [passportAuth]---');
+  // logger.debug(usersRouterPath);
+  console.log(`token info: ${JSON.stringify(req.tokenInfo)}`);
+  await revokeToken(req.tokenInfo);
+  res.clearCookie('token');
 };
