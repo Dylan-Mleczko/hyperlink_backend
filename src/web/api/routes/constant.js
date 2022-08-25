@@ -2,6 +2,7 @@ const root = '/api';
 
 const loginRouterPath = root + '/login';
 const logoutRouterPath = root + '/logout';
+//const registerRouterPath = root + '/register';
 
 const newUserRouterPath = root + '/user/new';
 const allUserRouterPath = root + '/user/all';
