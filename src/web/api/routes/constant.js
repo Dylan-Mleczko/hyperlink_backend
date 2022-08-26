@@ -2,9 +2,9 @@ const root = '/api';
 
 const loginRouterPath = root + '/login';
 const logoutRouterPath = root + '/logout';
-//const registerRouterPath = root + '/register';
+const registerRouterPath = root + '/register';
 
-const newUserRouterPath = root + '/user/new';
+// const newUserRouterPath = root + '/user/new';
 const allUserRouterPath = root + '/user/all';
 const getUserRouterPath = root + '/user/:id';
 const updateUserRouterPath = root + '/user/:id';
@@ -31,7 +31,7 @@ const deleteTagRouterPath = root + '/tag/:id';
 export {
   loginRouterPath,
   logoutRouterPath,
-  newUserRouterPath,
+  registerRouterPath,
   allUserRouterPath,
   getUserRouterPath,
   updateUserRouterPath,

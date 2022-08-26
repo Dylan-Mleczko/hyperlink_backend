@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  newUserRouterPath,
+  registerRouterPath,
   allUserRouterPath,
   getUserRouterPath,
   updateUserRouterPath,
@@ -10,15 +10,16 @@ import {
 } from '../constant';
 
 import { userController } from '../../controllers';
+import { passportAuth } from '../../../middleware/auth';
 const router = Router();
 
-router.post(newUserRouterPath, userController.registerUser);
+router.post(registerRouterPath, userController.registerUser);
 router.post(loginRouterPath, userController.login);
-router.post(logoutRouterPath, userController.logout);
-router.get(allUserRouterPath, userController.getAllUser);
-router.get(getUserRouterPath, userController.getUser);
-router.put(updateUserRouterPath, userController.updateUser);
-router.delete(deleteUserRouterPath, userController.deleteUser);
+router.post(logoutRouterPath, [passportAuth], userController.logout);
+router.get(allUserRouterPath, [passportAuth], userController.getAllUser);
+router.get(getUserRouterPath, [passportAuth], userController.getUser);
+router.put(updateUserRouterPath, [passportAuth], userController.updateUser);
+router.delete(deleteUserRouterPath, [passportAuth], userController.deleteUser);
 // router.post(loginRouterPath, userController.loginUser);
 
 export { router };
