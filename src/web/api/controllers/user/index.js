@@ -3,9 +3,11 @@ import { auth, revokeToken } from '../../../../services/auth';
 import Joi from 'joi';
 
 export const registerUser = async (req, res) => {
-  const data = req.body;
+  const data = req.body.data;
   const userDetails = data.userDetails;
   const authInfo = data.authInfo;
+
+  console.log(`userDetails: ${data.userDetails} authInfo: ${data.authInfo}`);
 
   // data validation
   const userDetailSchema = Joi.object().keys({
@@ -40,6 +42,8 @@ export const registerUser = async (req, res) => {
     last_name: userDetails.lastName,
     password: authInfo.password,
   });
+
+  console.log(`newUser: ${newUser}`);
   if (newUser == null) {
     res.status(422).json({
       message: 'failed to create user',
@@ -93,21 +97,22 @@ export const login = async (req, res) => {
   console.log('IP:' + req.ip);
   // logger.debug('', req.body);
   console.log(req.body);
+  const { email, password } = req.body.data;
   const authResult = await auth({
-    email: req.body.email,
-    password: req.body.password,
+    email: email,
+    password: password,
   });
   console.log('--- User Authentication ---');
   if (authResult.token) {
     const user = authResult.user;
-    console.log(`Authentication success. Email: ${req.body.email}, Token:${authResult.token}`);
+    console.log(`Authentication success. Email: ${email}, Token:${authResult.token}`);
     res.cookie('token', authResult.token, { httpOnly: true });
 
     return res.status(200).json({ user: { name: user.name, email: user.email, id: user._id } });
   } else {
     // 401，Authorization Fail
     console.log(
-      `Authentication fail. Email: ${req.body.email}, Password: ${req.body.password}, ErrorMessage: ${authResult.errorMessage}`
+      `Authentication fail. Email: ${email}, Password: ${password}, ErrorMessage: ${authResult.errorMessage}`
     );
     return res.status(401).json({
       error: 'Unauthorized',
