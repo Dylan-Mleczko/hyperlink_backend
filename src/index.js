@@ -6,13 +6,20 @@ import { middlewarePassport } from './web/middleware/passport';
 import { connect } from './utils/db';
 
 import { routes } from './web/api/routes';
+import cookieParser from 'cookie-parser';
 
-const PORT = 3000;
+const PORT = 3050;
 
 const app = express();
-app.use(cors()); // Enable All CORS Requests
+const corsOptions = {
+  origin: true, //included origin as true
+  credentials: true, //included credentials as true
+};
+
+app.use(cors(corsOptions)); // Enable All CORS Requests
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
+app.use(cookieParser());
 
 // use passport for authentication
 console.log('Passport initialize');
@@ -25,6 +32,13 @@ app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.send(200);
   }
+  next();
+});
+
+// set headers
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 

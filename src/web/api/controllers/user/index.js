@@ -106,9 +106,15 @@ export const login = async (req, res) => {
   if (authResult.token) {
     const user = authResult.user;
     console.log(`Authentication success. Email: ${email}, Token:${authResult.token}`);
-    res.cookie('token', authResult.token, { httpOnly: true });
+    // res.cookie('token', '123456');
+    // res.cookie('token', authResult.token, { httpOnly: true });
 
-    return res.status(200).json({ user: { name: user.name, email: user.email, id: user._id } });
+    return res
+      .cookie('access_token', authResult.token)
+      .status(200)
+      .json({
+        user: { name: user.name, email: user.email, id: user._id, token: authResult.token },
+      });
   } else {
     // 401，Authorization Fail
     console.log(
@@ -126,5 +132,5 @@ export const logout = async (req, res) => {
   // logger.debug(usersRouterPath);
   console.log(`token info: ${JSON.stringify(req.tokenInfo)}`);
   await revokeToken(req.tokenInfo);
-  res.clearCookie('token');
+  res.clearCookie('access_token').status(200).json({ message: 'Successfully logged out' });
 };
