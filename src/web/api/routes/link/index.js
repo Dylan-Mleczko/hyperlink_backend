@@ -7,12 +7,13 @@ import {
   deleteLinkRouterPath,
 } from '../constant';
 import { linkController } from '../../controllers';
+import { passportAuth } from '../../../middleware/auth';
 const router = Router();
 
-router.post(newLinkRouterPath, linkController.registerLink);
-router.get(allLinkRouterPath, linkController.getAllLink);
-router.get(getLinkRouterPath, linkController.getLink);
-router.put(updateLinkRouterPath, linkController.updateLink);
-router.delete(deleteLinkRouterPath, linkController.deleteLink);
+router.post(newLinkRouterPath, [passportAuth], linkController.registerLink);
+router.get(allLinkRouterPath, [passportAuth], linkController.getAllLink);
+router.get(getLinkRouterPath, [passportAuth], linkController.getLink);
+router.put(updateLinkRouterPath, [passportAuth], linkController.updateLink);
+router.delete(deleteLinkRouterPath, [passportAuth], linkController.deleteLink);
 
 export { router };

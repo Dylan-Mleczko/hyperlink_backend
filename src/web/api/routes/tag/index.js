@@ -7,12 +7,13 @@ import {
   deleteTagRouterPath,
 } from '../constant';
 import { tagController } from '../../controllers';
+import { passportAuth } from '../../../middleware/auth';
 const router = Router();
 
-router.post(newTagRouterPath, tagController.registerTag);
-router.get(allTagRouterPath, tagController.getAllTag);
-router.get(getTagRouterPath, tagController.getTag);
-router.put(updateTagRouterPath, tagController.updateTag);
-router.delete(deleteTagRouterPath, tagController.deleteTag);
+router.post(newTagRouterPath, [passportAuth], tagController.registerTag);
+router.get(allTagRouterPath, [passportAuth], tagController.getAllTag);
+router.get(getTagRouterPath, [passportAuth], tagController.getTag);
+router.put(updateTagRouterPath, [passportAuth], tagController.updateTag);
+router.delete(deleteTagRouterPath, [passportAuth], tagController.deleteTag);
 
 export { router };
