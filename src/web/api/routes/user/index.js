@@ -7,6 +7,8 @@ import {
   deleteUserRouterPath,
   loginRouterPath,
   logoutRouterPath,
+  startResestPassword,
+  endResestPassword,
 } from '../constant';
 
 import { userController } from '../../controllers';
@@ -16,10 +18,12 @@ const router = Router();
 router.post(registerRouterPath, userController.registerUser);
 router.post(loginRouterPath, userController.login);
 router.post(logoutRouterPath, [passportAuth], userController.logout);
+router.post(startResestPassword, userController.startResestPassword);
+router.post(endResestPassword, userController.endResestPassword);
+
 router.get(allUserRouterPath, [passportAuth], userController.getAllUser);
 router.get(getUserRouterPath, [passportAuth], userController.getUser);
 router.put(updateUserRouterPath, [passportAuth], userController.updateUser);
 router.delete(deleteUserRouterPath, [passportAuth], userController.deleteUser);
-// router.post(loginRouterPath, userController.loginUser);
 
 export { router };

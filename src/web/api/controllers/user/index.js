@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as userService from '../../../../services/user';
 import { auth, revokeToken } from '../../../../services/auth';
 import Joi from 'joi';
@@ -75,23 +76,6 @@ export const deleteUser = async (req, res) => {
   res.json({ data: { newUser } });
 };
 
-export const loginUser = async (req, res) => {
-  const { email, password } = req.body.data;
-
-  const dummyUser = { name: 'test' };
-
-  if (!email || !password) {
-    return res.status(401).json('Incorrect form of submission');
-  }
-
-  // Remove the dummy ifs and Add check for user from db and compare passwords with bcrypt, as we would not be storing passwords in db rather hashes, upon doing that get the user returned by the db and res.send that user instead of dummy user
-  if (email == 'test@test.com' && password == '12345678') {
-    return res.send(dummyUser);
-  } else {
-    res.status(401).json('Invalid Email or Password');
-  }
-};
-
 export const login = async (req, res) => {
   // const ip = req.ip.match(/\d+\.\d+\.\d+\.\d+/);
   console.log('IP:' + req.ip);
@@ -134,3 +118,23 @@ export const logout = async (req, res) => {
   await revokeToken(req.tokenInfo);
   res.clearCookie('access_token').status(200).json({ message: 'Successfully logged out' });
 };
+
+export const startResestPassword = async (req, res) => {
+  const { email } = req.body.data;
+
+  const data = await userService.readByEmail(email);
+
+  // check if valid email, send email for reset then
+  if (data) {
+    //send an email to that user using an email service
+    return res.status(200).json('Coolll');
+  } else {
+    console.log(`User with email ${email} does not exist`);
+    return res.status(404).json({
+      error: 'Unauthorized',
+      message: `User with email ${email} does not exist`,
+    });
+  }
+};
+
+export const endResestPassword = async (req, res) => {};
