@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
+import Joi from 'joi';
+
 import * as userService from '../../../../services/user';
 import { auth, revokeToken } from '../../../../services/auth';
-import Joi from 'joi';
+import { sendEmail } from '../../../../utils/email/index';
 
 export const registerUser = async (req, res) => {
   const data = req.body.data;
@@ -126,8 +128,8 @@ export const startResestPassword = async (req, res) => {
 
   // check if valid email, send email for reset then
   if (data) {
-    //send an email to that user using an email service
-    return res.status(200).json('Coolll');
+    await sendEmail(email);
+    return res.status(200).json('Email sent');
   } else {
     console.log(`User with email ${email} does not exist`);
     return res.status(404).json({
