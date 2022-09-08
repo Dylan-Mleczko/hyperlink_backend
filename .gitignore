@@ -5,6 +5,12 @@ globalConfig.json
 *.log
 logs/
 
+# environment
+/environment
+/env
+*.env
+/src/environment.js
+
 tmp/
 .env
 .vscode/
