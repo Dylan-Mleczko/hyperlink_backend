@@ -17,7 +17,7 @@ const router = Router();
 
 router.post(registerRouterPath, userController.registerUser);
 router.post(loginRouterPath, userController.login);
-router.post(logoutRouterPath, [passportAuth], userController.logout);
+router.post(logoutRouterPath, userController.logout);
 router.post(startResestPassword, userController.startResestPassword);
 router.post(endResestPassword, userController.endResestPassword);
 

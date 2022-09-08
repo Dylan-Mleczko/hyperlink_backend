@@ -115,10 +115,17 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   console.log('--- User Router [passportAuth]---');
-  // logger.debug(usersRouterPath);
-  console.log(`token info: ${JSON.stringify(req.tokenInfo)}`);
-  await revokeToken(req.tokenInfo);
-  res.clearCookie('access_token').status(200).json({ message: 'Successfully logged out' });
+  try {
+    const token = req.body.data.token;
+    // logger.debug(usersRouterPath);
+    console.log(`token info: ${JSON.stringify(token)}`);
+    await revokeToken(token);
+    res.clearCookie('access_token').status(200).json({ message: 'Successfully logged out' });
+  } catch (err) {
+    return res.status(404).json({
+      error: err,
+    });
+  }
 };
 
 export const startResestPassword = async (req, res) => {
