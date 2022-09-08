@@ -10,7 +10,7 @@ const setUrl = (email) => {
 const getMessage = (email) => {
   return {
     to: email,
-    from: 'jaiswalk@student.unimelb.edu.au',
+    from: env.senderEmail,
     subject: 'Password Reset',
     text: `To reset your password kindly click on this link \n ${setUrl(email)}`,
   };
