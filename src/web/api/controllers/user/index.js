@@ -4,6 +4,7 @@ import Joi from 'joi';
 import * as userService from '../../../../services/user';
 import { auth, revokeToken } from '../../../../services/auth';
 import { sendEmail } from '../../../../utils/email/index';
+import { isHashedPassword, hashPassword } from '../../../../services/auth';
 
 export const registerUser = async (req, res) => {
   const data = req.body.data;
@@ -146,4 +147,28 @@ export const startResestPassword = async (req, res) => {
   }
 };
 
-export const endResestPassword = async (req, res) => {};
+export const endResestPassword = async (req, res) => {
+  try {
+    const { email, password } = req.body.data;
+
+    const user = await userService.readByEmail(email);
+
+    let hashedPassword = password;
+    const isHashed = await isHashedPassword(password);
+    if (!isHashed) {
+      hashedPassword = await hashPassword(password);
+    }
+
+    user.password = hashedPassword;
+
+    user.save();
+
+    console.log(`Password updated to ${password}`);
+
+    return res.status(200).json('Password Reset successful');
+  } catch (err) {
+    return res.status(404).json({
+      error: err,
+    });
+  }
+};
