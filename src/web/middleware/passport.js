@@ -4,7 +4,7 @@ import { User } from '../../models';
 
 const authOpts = {
   jwtFromRequest: ExtractJwt.fromExtractors([
-    (req) => req.cookies['token'],
+    (req) => req.cookies['access_token'],
     // ExtractJwt.fromUrlQueryParameter('token'),
     ExtractJwt.fromAuthHeaderAsBearerToken(),
   ]),
