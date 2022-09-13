@@ -16,7 +16,16 @@ export const readById = async (collectionId) => {
   return collection;
 };
 
-export const readAll = async () => {
-  const collections = await Collection.find();
+export const readAllByUserId = async (userId) => {
+  if (!isMongoId(`${userId}`)) {
+    console.log(`Invalid userId ${userId}`);
+    return undefined;
+  }
+  const collections = await Collection.find({ user_id: userId });
+
+  if (isNilOrEmpty(collections)) {
+    console.log(`Cannot find collection with user id: ${userId}`);
+  }
+
   return collections;
 };

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   newCollectionRouterPath,
-  allCollectionRouterPath,
+  allUserCollectionsRouterPath,
   getCollectionRouterPath,
   updateCollectionRouterPath,
   deleteCollectionRouterPath,
@@ -10,8 +10,8 @@ import { collectionController } from '../../controllers';
 import { passportAuth } from '../../../middleware/auth';
 const router = Router();
 
-router.post(newCollectionRouterPath, [passportAuth], collectionController.registerCollection);
-router.get(allCollectionRouterPath, [passportAuth], collectionController.getAllCollection);
+router.post(newCollectionRouterPath, [passportAuth], collectionController.addCollection);
+router.get(allUserCollectionsRouterPath, [passportAuth], collectionController.getUserCollections);
 router.get(getCollectionRouterPath, [passportAuth], collectionController.getCollection);
 router.put(updateCollectionRouterPath, [passportAuth], collectionController.updateCollection);
 router.delete(deleteCollectionRouterPath, [passportAuth], collectionController.deleteCollection);
