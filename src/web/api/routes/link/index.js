@@ -10,7 +10,7 @@ import { linkController } from '../../controllers';
 import { passportAuth } from '../../../middleware/auth';
 const router = Router();
 
-router.post(newLinkRouterPath, [passportAuth], linkController.registerLink);
+router.post(newLinkRouterPath, [passportAuth], linkController.addLink);
 router.get(allLinkRouterPath, [passportAuth], linkController.getAllLink);
 router.get(getLinkRouterPath, [passportAuth], linkController.getLink);
 router.put(updateLinkRouterPath, [passportAuth], linkController.updateLink);

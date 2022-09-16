@@ -1,13 +1,14 @@
 import * as tagService from '../../../../services/tag';
 import Joi from 'joi';
 
-export const registerTag = async (req, res) => {
+export const addTag = async (req, res) => {
   const data = req.body;
   const tagDetails = data.tagDetails;
 
   // data validation
   const tagDetailSchema = Joi.object().keys({
     name: Joi.string().min(0).max(63).required(),
+    user_id: Joi.string(),
   });
 
   const tagDetailError = tagDetailSchema.validate(tagDetails).error;
@@ -24,6 +25,7 @@ export const registerTag = async (req, res) => {
 
   const newTag = await tagService.create({
     name: tagDetails.name,
+    user_id: tagDetails.user_id,
   });
 
   if (newTag == null) {
@@ -37,8 +39,8 @@ export const registerTag = async (req, res) => {
   res.json({ data: { tag: newTag } });
 };
 
-export const getAllTag = async (_, res) => {
-  const tags = await tagService.readAll();
+export const getUserTags = async (req, res) => {
+  const tags = await tagService.readAllByUserId(req.user._id);
   res.json({ data: { tags } });
 };
 

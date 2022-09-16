@@ -1,7 +1,7 @@
 import * as collectionService from '../../../../services/collection';
 import Joi from 'joi';
 
-export const registerCollection = async (req, res) => {
+export const addCollection = async (req, res) => {
   const data = req.body;
   const collectionDetails = data.collectionDetails;
 
@@ -41,8 +41,8 @@ export const registerCollection = async (req, res) => {
   res.json({ data: { collection: newCollection } });
 };
 
-export const getAllCollection = async (_, res) => {
-  const collections = await collectionService.readAll();
+export const getUserCollections = async (req, res) => {
+  const collections = await collectionService.readAllByUserId(req.user._id);
   res.json({ data: { collections } });
 };
 

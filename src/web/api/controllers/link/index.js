@@ -1,7 +1,7 @@
 import * as linkService from '../../../../services/link';
 import Joi from 'joi';
 
-export const registerLink = async (req, res) => {
+export const addLink = async (req, res) => {
   const data = req.body;
   const linkDetails = data.linkDetails;
 
