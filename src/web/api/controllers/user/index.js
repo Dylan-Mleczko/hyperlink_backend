@@ -15,13 +15,13 @@ export const registerUser = async (req, res) => {
 
   // data validation
   const userDetailSchema = Joi.object().keys({
-    firstName: Joi.string().min(0).max(99).required(),
-    lastName: Joi.string().min(0).max(99).required(),
+    firstName: Joi.string().min(2).max(30).required(),
+    lastName: Joi.string().min(2).max(30).required(),
   });
 
   const authInfoSchema = Joi.object().keys({
-    email: Joi.string().min(5).max(255).required().email(),
-    password: Joi.string().min(5).max(255).required(),
+    email: Joi.string().min(8).max(255).required().email(),
+    password: Joi.string().min(8).max(255).required(),
   });
 
   const patientDetailError = userDetailSchema.validate(userDetails).error;
