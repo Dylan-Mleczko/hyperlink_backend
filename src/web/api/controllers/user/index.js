@@ -129,6 +129,21 @@ export const logout = async (req, res) => {
   }
 };
 
+export const checkEmailExists = async (req, res) => {
+  const email = req.body.data;
+
+  const data = await userService.readByEmail(email);
+
+  if (data) {
+    return res.status(409).json({
+      error: 'Email exists',
+      message: `User with email ${email} exists`,
+    });
+  } else {
+    return res.status(200).json('Success');
+  }
+};
+
 export const startResestPassword = async (req, res) => {
   const { email } = req.body.data;
 

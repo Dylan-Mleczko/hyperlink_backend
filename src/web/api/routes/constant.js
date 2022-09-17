@@ -5,6 +5,7 @@ const logoutRouterPath = root + '/logout';
 const registerRouterPath = root + '/register';
 const startResestPassword = root + '/start/reset';
 const endResestPassword = root + '/end/reset';
+const checkEmailExists = root + '/check/email';
 
 // const newUserRouterPath = root + '/user/new';
 const allUserRouterPath = root + '/user/all';
@@ -36,6 +37,7 @@ export {
   registerRouterPath,
   startResestPassword,
   endResestPassword,
+  checkEmailExists,
   allUserRouterPath,
   getUserRouterPath,
   updateUserRouterPath,
