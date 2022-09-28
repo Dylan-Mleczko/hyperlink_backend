@@ -117,7 +117,8 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   console.log('--- User Router [passportAuth]---');
   try {
-    const token = req.body.data.token;
+    const token = req.cookies['access_token'];
+
     // logger.debug(usersRouterPath);
     console.log(`token info: ${JSON.stringify(token)}`);
     await revokeToken(token);

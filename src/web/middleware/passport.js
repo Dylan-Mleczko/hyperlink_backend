@@ -6,7 +6,7 @@ const authOpts = {
   jwtFromRequest: ExtractJwt.fromExtractors([
     (req) => req.cookies['access_token'],
     // ExtractJwt.fromUrlQueryParameter('token'),
-    ExtractJwt.fromAuthHeaderAsBearerToken(),
+    // ExtractJwt.fromAuthHeaderAsBearerToken(),
   ]),
   secretOrKey: config.secrets.jwtPrivateKey,
   passReqToCallback: true,
