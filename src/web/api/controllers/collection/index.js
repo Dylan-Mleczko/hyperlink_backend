@@ -66,8 +66,6 @@ export const addTagToCollection = async (req, res) => {
   // check for existing tag with name
   var exists = false;
   var addTag = null;
-  // const [exists, setExists] = useState(false);
-  // const [addTag, setTag] = useState();
   const existingCollection = await collectionService.readById(req.body.collection_id);
   const newTagName = req.body.tagDetails.name;
 

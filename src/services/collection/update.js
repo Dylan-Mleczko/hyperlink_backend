@@ -18,7 +18,6 @@ export const update = async (collectionId, props) => {
   }
 
   if (props.tags) {
-    console.log(props.tags);
     collection.tags = props.tags;
   }
 

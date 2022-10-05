@@ -1,4 +1,5 @@
 import * as tagService from '../../../../services/tag';
+import * as collectionService from '../../../../services/collection';
 import Joi from 'joi';
 
 export const addTag = async (req, res) => {
@@ -48,6 +49,14 @@ export const updateTag = async (req, res) => {
 };
 
 export const deleteTag = async (req, res) => {
-  const newTag = await tagService.deleteById({ tagId: req.params.id });
-  res.json({ data: { newTag } });
+  const collections = await collectionService.readAllByUserId(req.body.user_id);
+  for (const collection of collections) {
+    await collectionService.update(collection.id, {
+      tags: collection.tags.filter((tag) => {
+        return tag.toHexString() != req.params.id;
+      }),
+    });
+  }
+  await tagService.deleteById({ tagId: req.params.id });
+  res.status(200).json({ res: 'deleted tag successfully' });
 };
