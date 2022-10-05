@@ -8,7 +8,6 @@ export const addTag = async (req, res) => {
   // data validation
   const tagDetailSchema = Joi.object().keys({
     name: Joi.string().min(0).max(63).required(),
-    user_id: Joi.string(),
   });
 
   const tagDetailError = tagDetailSchema.validate(tagDetails).error;
@@ -25,7 +24,6 @@ export const addTag = async (req, res) => {
 
   const newTag = await tagService.create({
     name: tagDetails.name,
-    user_id: tagDetails.user_id,
   });
 
   if (newTag == null) {
@@ -37,11 +35,6 @@ export const addTag = async (req, res) => {
   }
 
   res.json({ data: { tag: newTag } });
-};
-
-export const getUserTags = async (req, res) => {
-  const tags = await tagService.readAllByUserId(req.user._id);
-  res.json({ data: { tags } });
 };
 
 export const getTag = async (req, res) => {

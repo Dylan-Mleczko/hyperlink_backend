@@ -1,4 +1,5 @@
 import * as collectionService from '../../../../services/collection';
+import * as tagService from '../../../../services/tag';
 import Joi from 'joi';
 
 export const addCollection = async (req, res) => {
@@ -52,7 +53,6 @@ export const getCollection = async (req, res) => {
 };
 
 export const updateCollection = async (req, res) => {
-  console.log(req.params.id);
   const newCollection = await collectionService.update(req.params.id, req.body.collectionDetails);
   res.json({ data: { newCollection } });
 };
@@ -60,4 +60,44 @@ export const updateCollection = async (req, res) => {
 export const deleteCollection = async (req, res) => {
   const newCollection = await collectionService.deleteById({ collectionId: req.params.id });
   res.json({ data: { newCollection } });
+};
+
+export const addTagToCollection = async (req, res) => {
+  // check for existing tag with name
+  var exists = false;
+  var addTag = null;
+  // const [exists, setExists] = useState(false);
+  // const [addTag, setTag] = useState();
+  const existingCollection = await collectionService.readById(req.body.collection_id);
+  const newTagName = req.body.tagDetails.name;
+
+  // check if any other collections of the user have the tag
+  const collections = await collectionService.readAllByUserId(req.body.user_id);
+  for (const collection of collections) {
+    for (const tag_obj of collection.tags) {
+      const tag = await tagService.readById(tag_obj.toHexString());
+      if (tag.name === newTagName) {
+        if (collection.id === existingCollection.id) {
+          exists = true;
+        } else {
+          addTag = tag;
+        }
+      }
+    }
+  }
+
+  if (!exists) {
+    if (addTag == null) {
+      console.log('creating new tag');
+      addTag = await tagService.create(req.body.tagDetails);
+    }
+    const newCollection = await collectionService.update(req.body.collection_id, {
+      tags: [...existingCollection.tags, addTag],
+    });
+    res.json({ data: { newCollection } });
+    return;
+  }
+
+  // check if the collection already contains the tag
+  res.json({ res: 'tag already exists in collections' });
 };
