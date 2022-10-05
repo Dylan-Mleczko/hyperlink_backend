@@ -15,17 +15,3 @@ export const readById = async (tagId) => {
 
   return tag;
 };
-
-export const readAllByUserId = async (userId) => {
-  if (!isMongoId(`${userId}`)) {
-    console.log(`Invalid userId ${userId}`);
-    return undefined;
-  }
-  const tags = await Tag.find({ user_id: userId });
-
-  if (isNilOrEmpty(tags)) {
-    console.log(`Cannot find tag with user id: ${userId}`);
-  }
-
-  return tags;
-};

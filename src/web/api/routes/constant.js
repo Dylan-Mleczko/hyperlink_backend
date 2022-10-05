@@ -16,6 +16,7 @@ const deleteUserRouterPath = root + '/user/:id';
 const newCollectionRouterPath = root + '/collection/new';
 const allUserCollectionsRouterPath = root + '/collection/all';
 const getCollectionRouterPath = root + '/collection/:id';
+const addTagToCollectionRouterPath = root + '/collection/tag';
 const updateCollectionRouterPath = root + '/collection/:id';
 const deleteCollectionRouterPath = root + '/collection/:id';
 
@@ -26,7 +27,6 @@ const updateLinkRouterPath = root + '/link/:id';
 const deleteLinkRouterPath = root + '/link/:id';
 
 const newTagRouterPath = root + '/tag/new';
-const allUserTagRouterPath = root + '/tag/all';
 const getTagRouterPath = root + '/tag/:id';
 const updateTagRouterPath = root + '/tag/:id';
 const deleteTagRouterPath = root + '/tag/:id';
@@ -45,6 +45,7 @@ export {
   newCollectionRouterPath,
   allUserCollectionsRouterPath,
   getCollectionRouterPath,
+  addTagToCollectionRouterPath,
   updateCollectionRouterPath,
   deleteCollectionRouterPath,
   newLinkRouterPath,
@@ -53,7 +54,6 @@ export {
   updateLinkRouterPath,
   deleteLinkRouterPath,
   newTagRouterPath,
-  allUserTagRouterPath,
   getTagRouterPath,
   updateTagRouterPath,
   deleteTagRouterPath,
