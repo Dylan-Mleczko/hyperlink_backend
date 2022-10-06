@@ -1,6 +1,7 @@
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { isMongoId } from 'validator';
 import { Collection } from '../../models';
+import * as tagService from '../tag';
 
 export const readById = async (collectionId) => {
   if (!isMongoId(`${collectionId}`)) {
@@ -27,5 +28,24 @@ export const readAllByUserId = async (userId) => {
     console.log(`Cannot find collection with user id: ${userId}`);
   }
 
-  return collections;
+  var collectionsWithTags = [];
+
+  for (const collection of collections) {
+    var resolvedTags = [];
+    for (const tag of collection.tags) {
+      await tagService
+        .readById(tag)
+        .then((response) => {
+          resolvedTags = [...resolvedTags, response];
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    const collectionWithTag = collection;
+    collectionWithTag.tags = resolvedTags;
+    collectionsWithTags = [...collectionsWithTags, collectionWithTag];
+  }
+
+  return collectionsWithTags;
 };
