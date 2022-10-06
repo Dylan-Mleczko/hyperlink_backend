@@ -49,6 +49,8 @@ routes.forEach((route) => {
 
 console.log(config.db.uri);
 
+app.get('/api', (req, res) => res.send('It is working'));
+
 const startServer = async () => {
   await connect(config.db.uri);
 
