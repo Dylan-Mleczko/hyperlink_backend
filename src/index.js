@@ -8,7 +8,7 @@ import { connect } from './utils/db';
 import { routes } from './web/api/routes';
 import cookieParser from 'cookie-parser';
 
-const PORT = 3050;
+const PORT = process.env.PORT || 3050;
 
 const app = express();
 const corsOptions = {

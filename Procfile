@@ -1,0 +1,1 @@
+web: cross-env NODE_ENV=development NODE_PATH=./src ./node_modules/.bin/nodemon --exec babel-node -- src/index.js
