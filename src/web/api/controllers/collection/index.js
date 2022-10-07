@@ -72,8 +72,7 @@ export const addTagToCollection = async (req, res) => {
   // check if any other collections of the user have the tag
   const collections = await collectionService.readAllByUserId(req.body.user_id);
   for (const collection of collections) {
-    for (const tag_obj of collection.tags) {
-      const tag = await tagService.readById(tag_obj.toHexString());
+    for (const tag of collection.tags) {
       if (tag.name === newTagName) {
         if (collection.id === existingCollection.id) {
           exists = true;
