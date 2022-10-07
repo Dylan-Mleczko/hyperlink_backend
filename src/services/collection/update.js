@@ -25,7 +25,7 @@ export const update = async (collectionId, props) => {
     collection.image = props.image;
   }
 
-  if (props.favourite) {
+  if (props['favourite'] !== undefined) {
     collection.favourite = props.favourite;
   }
 
