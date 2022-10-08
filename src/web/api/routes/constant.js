@@ -9,8 +9,8 @@ const checkEmailExists = root + '/check/email';
 
 // const newUserRouterPath = root + '/user/new';
 const allUserRouterPath = root + '/user/all';
-const getUserRouterPath = root + '/user/:id';
-const updateUserRouterPath = root + '/user/:id';
+const getUserRouterPath = root + '/user';
+const updateUserRouterPath = root + '/user/update';
 const deleteUserRouterPath = root + '/user/:id';
 
 const newCollectionRouterPath = root + '/collection/new';
