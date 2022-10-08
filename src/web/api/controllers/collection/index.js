@@ -53,8 +53,8 @@ export const getCollection = async (req, res) => {
 };
 
 export const updateCollection = async (req, res) => {
-  const newCollection = await collectionService.update(req.params.id, req.body.collectionDetails);
-  res.json({ data: { newCollection } });
+  const collection = await collectionService.update(req.params.id, req.body.collectionDetails);
+  res.json({ data: { collection } });
 };
 
 export const deleteCollection = async (req, res) => {
