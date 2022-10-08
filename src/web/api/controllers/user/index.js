@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Joi from 'joi';
+import mongoose from 'mongoose';
 
 import * as userService from '../../../../services/user';
 import { auth, revokeToken } from '../../../../services/auth';
@@ -65,13 +66,15 @@ export const getAllUser = async (_, res) => {
 };
 
 export const getUser = async (req, res) => {
-  const user = await userService.readById(req.params.id);
-  res.json({ data: { user } });
+  const user = await userService.readById(req.user._id);
+  const result = { email: user.email, name: user.name };
+  res.json({ user: result });
 };
 
 export const updateUser = async (req, res) => {
-  const newUser = await userService.update(req.params.id, req.body.userDetails);
-  res.json({ data: { newUser } });
+  console.log(req.body);
+  const newUser = await userService.update(req.user._id, req.body.userDetails);
+  res.json({ newUser });
 };
 
 export const deleteUser = async (req, res) => {

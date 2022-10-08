@@ -26,7 +26,7 @@ router.post(checkEmailExists, userController.checkEmailExists);
 
 router.get(allUserRouterPath, [passportAuth], userController.getAllUser);
 router.get(getUserRouterPath, [passportAuth], userController.getUser);
-router.put(updateUserRouterPath, [passportAuth], userController.updateUser);
+router.post(updateUserRouterPath, [passportAuth], userController.updateUser);
 router.delete(deleteUserRouterPath, [passportAuth], userController.deleteUser);
 
 export { router };
