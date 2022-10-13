@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import Joi from 'joi';
 import { Tag } from '../../models';
+import { readByName } from './read';
 
 export const validate = async (tagName) => {
   const schema = Joi.object({
@@ -11,12 +12,15 @@ export const validate = async (tagName) => {
 };
 
 export const create = async ({ name }) => {
+  let tag = await readByName(name);
+  if (tag) return tag;
+
   var tagData = {
     name,
     created_at: Date.now(),
     updated_at: null,
   };
 
-  const tag = await Tag.create(tagData);
+  tag = await Tag.create(tagData);
   return tag;
 };

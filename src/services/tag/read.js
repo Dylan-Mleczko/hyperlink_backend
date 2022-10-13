@@ -15,3 +15,13 @@ export const readById = async (tagId) => {
 
   return tag;
 };
+
+export const readByName = async (tagName) => {
+  const tag = await Tag.findOne({ name: tagName }).exec();
+
+  // if (isNilOrEmpty(tag)) {
+  //   console.log(`Cannot find tag with name: ${tagName}`);
+  // }
+
+  return tag;
+};
