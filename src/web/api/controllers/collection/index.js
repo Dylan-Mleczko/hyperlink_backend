@@ -1,10 +1,12 @@
 import * as collectionService from '../../../../services/collection';
 import * as tagService from '../../../../services/tag';
 import Joi from 'joi';
+import { Buffer } from 'buffer';
 
 const base64ImageToBuffer = (base64Data) => {
   const imageData = base64Data.replace(/^data:image\/\w+;base64,/, '');
-  var dataBuffer = new Buffer(imageData, 'base64');
+  // var dataBuffer = new Buffer(imageData, 'base64');
+  var dataBuffer = Buffer.from(imageData, 'base64');
   return dataBuffer;
 };
 
@@ -88,23 +90,61 @@ export const addCollection = async (req, res) => {
   newCollection.image = newCollection.image != null ? newCollection._id.toString() : null;
   res.json({ data: { collection: newCollection } });
 };
+
 export const getUserCollections = async (req, res) => {
   const collections = await collectionService.readAllByUserId(req.user._id);
-  res.json({ data: { collections } });
+  const colls = collections.map((collection) => {
+    if (collection.image) collection.image = collection._id.toString();
+    else collection.image = null;
+
+    return collection;
+  });
+  res.json({ data: { collections: colls } });
 };
 
 export const getCollection = async (req, res) => {
   const collection = await collectionService.readById(req.params.id);
+  if (collection.image) collection.image = collection._id.toString();
+  else collection.image = null;
   res.json({ data: { collection } });
 };
 
+export const getCollectionImage = async (req, res) => {
+  const imageType = req.params.type;
+  const collectionId = req.params.id;
+
+  const collection = await collectionService.readById(collectionId);
+
+  if (
+    collection &&
+    collection.image.data &&
+    collection.image.type &&
+    collection.image.type === 'Buffer'
+  ) {
+    if (imageType && imageType === 'base64') {
+      // // output base64 image
+      const base64ImgStr = bufferToBase64Image(collection.image.data, collection.image_type);
+      res.send(base64ImgStr);
+    } else {
+      res.set('content-type', { png: 'image/png', jpg: 'image/jpeg' });
+      const dataBuffer = Buffer.from(collection.image.data.toString('hex'), 'hex');
+      res.send(dataBuffer);
+    }
+  } else {
+    res.send('');
+  }
+};
+
 export const updateCollection = async (req, res) => {
+  console.log(updateCollection);
   const collection = await collectionService.update(req.params.id, req.body.collectionDetails);
   res.json({ data: { collection } });
 };
 
 export const deleteCollection = async (req, res) => {
-  const newCollection = await collectionService.deleteById({ collectionId: req.params.id });
+  const newCollection = await collectionService.deleteById({
+    collectionId: req.params.id,
+  });
   res.json({ data: { newCollection } });
 };
 
