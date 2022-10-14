@@ -4,6 +4,7 @@ import cors from 'cors';
 import passport from 'passport';
 import { middlewarePassport } from './web/middleware/passport';
 import { connect } from './utils/db';
+import fileupload from 'express-fileupload';
 
 import { routes } from './web/api/routes';
 import cookieParser from 'cookie-parser';
@@ -17,9 +18,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions)); // Enable All CORS Requests
-app.use(express.json()); // for parsing application/json
+app.use(express.json({ limit: '50mb' })); // for parsing application/json
 app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 app.use(cookieParser());
+app.use(fileupload());
 
 // use passport for authentication
 console.log('Passport initialize');
