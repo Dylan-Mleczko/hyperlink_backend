@@ -18,7 +18,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions)); // Enable All CORS Requests
-app.use(express.json({ limit: '50mb' })); // for parsing application/json
+app.use(express.json({ limit: '5mb' })); // for parsing application/json
 app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 app.use(cookieParser());
 app.use(fileupload());

@@ -15,9 +15,12 @@ const collectionSchema = new Schema(
         ref: 'Tag',
       },
     ],
+
     image: {
-      data: Buffer,
-      contentType: String,
+      type: Object,
+    },
+    image_type: {
+      type: String,
     },
     click_count: {
       type: Number,
