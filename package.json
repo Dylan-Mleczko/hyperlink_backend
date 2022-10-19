@@ -7,14 +7,16 @@
     "test": "cross-env NODE_PATH=./src NODE_ENV=test NODE_OPTIONS='--max-old-space-size=2048' jest --config .jestrc.json --runInBand",
     "babel-node": "babel-node --presets='@babel/preset-env' --ignore='foo|bar|baz'",
     "debug": "cross-env NODE_ENV=development NODE_PATH=./src ./node_modules/.bin/nodemon --exec babel-node -- src/index.js",
-    "start": "nodemon --exec npm run babel-node -- src/index.js",
+    "start": "cross-env NODE_PATH=./dist node dist",
     "lint": "./node_modules/.bin/eslint src/",
     "prepare": "husky install",
+    "build": "babel src -d dist --copy-files",
     "jest": "jest --config .jestrc.json --runInBand"
   },
   "author": "Kelsey",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.19.3",
     "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.0.1",
     "config": "^3.3.7",
@@ -29,7 +31,10 @@
     "passport-jwt": "^4.0.0",
     "ramda": "^0.28.0",
     "ramda-adjunct": "^3.2.0",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "cross-env": "^7.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
@@ -41,10 +46,7 @@
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@shelf/jest-mongodb": "^4.0.0",
-    "cors": "^2.8.5",
-    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "dotenv": "^16.0.1",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
