@@ -1,0 +1,13 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "sdfa",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_PATH=./ node ."
+  },
+  "author": "Kelsey",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}
