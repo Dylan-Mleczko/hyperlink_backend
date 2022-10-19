@@ -11,6 +11,7 @@ export const readById = async (linkId) => {
 
   if (isNilOrEmpty(link)) {
     console.log(`Cannot find link with id: ${linkId}`);
+    return undefined;
   }
 
   return link;

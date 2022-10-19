@@ -27,6 +27,7 @@ export const readById = async (collectionId) => {
 
   if (isNilOrEmpty(collection)) {
     console.log(`Cannot find collection with id: ${collectionId}`);
+    return undefined;
   }
 
   const collectionWithTag = collection;
@@ -44,6 +45,7 @@ export const readAllByUserId = async (userId) => {
 
   if (isNilOrEmpty(collections)) {
     console.log(`Cannot find collection with user id: ${userId}`);
+    return undefined;
   }
 
   var collectionsWithTags = [];

@@ -115,12 +115,7 @@ export const getCollectionImage = async (req, res) => {
 
   const collection = await collectionService.readById(collectionId);
 
-  if (
-    collection &&
-    collection.image.data &&
-    collection.image.type &&
-    collection.image.type === 'Buffer'
-  ) {
+  if (collection?.image?.data && collection?.image?.type && collection?.image?.type === 'Buffer') {
     if (imageType && imageType === 'base64') {
       // // output base64 image
       const base64ImgStr = bufferToBase64Image(collection.image.data, collection.image_type);
@@ -128,10 +123,11 @@ export const getCollectionImage = async (req, res) => {
     } else {
       res.set('content-type', { png: 'image/png', jpg: 'image/jpeg' });
       const dataBuffer = Buffer.from(collection.image.data.toString('hex'), 'hex');
+
       res.send(dataBuffer);
     }
   } else {
-    res.send('');
+    res.send('collection-background.jpg');
   }
 };
 

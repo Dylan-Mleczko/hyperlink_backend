@@ -11,6 +11,7 @@ export const readById = async (userId) => {
 
   if (isNilOrEmpty(user)) {
     console.log(`Cannot find user with id: ${userId}`);
+    return undefined;
   }
 
   return user;

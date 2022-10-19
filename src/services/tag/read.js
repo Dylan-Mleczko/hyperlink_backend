@@ -11,6 +11,7 @@ export const readById = async (tagId) => {
 
   if (isNilOrEmpty(tag)) {
     console.log(`Cannot find tag with id: ${tagId}`);
+    return undefined;
   }
 
   return tag;
