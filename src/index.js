@@ -9,8 +9,10 @@ import fileupload from 'express-fileupload';
 import { routes } from './web/api/routes';
 import cookieParser from 'cookie-parser';
 
-const PORT = 3050;
+const PORT = config.server.port;
 
+console.log('--------- port: ' + PORT + '--------------');
+console.log('--------- privateKey: ' + config.secrets.jwtPrivateKey + '--------------');
 const app = express();
 const corsOptions = {
   origin: true, //included origin as true
@@ -39,7 +41,7 @@ app.use((req, res, next) => {
 
 // set headers
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
