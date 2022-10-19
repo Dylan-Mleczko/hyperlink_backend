@@ -2,6 +2,8 @@ import * as collectionService from '../../../../services/collection';
 import * as tagService from '../../../../services/tag';
 import Joi from 'joi';
 import { Buffer } from 'buffer';
+// import fs from 'fs';
+// import path from 'path';
 
 const base64ImageToBuffer = (base64Data) => {
   const imageData = base64Data.replace(/^data:image\/\w+;base64,/, '');
@@ -127,7 +129,13 @@ export const getCollectionImage = async (req, res) => {
       res.send(dataBuffer);
     }
   } else {
-    res.send('collection-background.jpg');
+    // const readable = fs.readFileSync(
+    //   path.join(__dirname, '/../../../collection-background.jpg'),
+    //   'binary'
+    // );
+    // console.log(path.join(__dirname, 'collection-background.jpg'));
+    // res.send(Buffer.from(readable, 'binary'));
+    res.send('');
   }
 };
 

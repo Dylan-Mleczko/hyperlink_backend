@@ -19,6 +19,8 @@ const corsOptions = {
   credentials: true, //included credentials as true
 };
 
+app.use(express.static(__dirname + '/public'));
+// console.log(__dirname + '/../public');
 app.use(cors(corsOptions)); // Enable All CORS Requests
 app.use(express.json({ limit: '5mb' })); // for parsing application/json
 app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
