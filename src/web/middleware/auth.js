@@ -1,12 +1,6 @@
 /* eslint-disable complexity */
 
 export const passportAuth = (req, res, next) => {
-  console.log('--- Middleware passport authentication ---');
-  console.log(
-    '---------------------------- Access-Token Found in Request Cookie: ' +
-      req.cookies['access_token']
-  );
-
   if (!req.passport) {
     console.log('Passport is null!');
     return next();

@@ -23,7 +23,7 @@ const updateCollectionRouterPath = root + '/collection/:id';
 const deleteCollectionRouterPath = root + '/collection/:id';
 
 const newLinkRouterPath = root + '/link/new';
-const allLinkRouterPath = root + '/link/all';
+const allLinkRouterPath = root + '/link/all/:id';
 const getLinkRouterPath = root + '/link/:id';
 const updateLinkRouterPath = root + '/link/:id';
 const deleteLinkRouterPath = root + '/link/:id';

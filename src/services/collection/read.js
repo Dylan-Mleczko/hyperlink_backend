@@ -19,6 +19,7 @@ async function resolveTags(tags) {
 }
 
 export const readById = async (collectionId) => {
+  console.log(collectionId);
   if (!isMongoId(`${collectionId}`)) {
     console.log(`Invalid collectionId ${collectionId}`);
     return undefined;
@@ -37,6 +38,7 @@ export const readById = async (collectionId) => {
 };
 
 export const readAllByUserId = async (userId) => {
+  console.log(userId);
   if (!isMongoId(`${userId}`)) {
     console.log(`Invalid userId ${userId}`);
     return undefined;
