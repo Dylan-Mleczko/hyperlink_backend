@@ -53,7 +53,7 @@ export const getAllLink = async (req, res) => {
   // });
   // res.json({ data: { collections: colls } });
   // const collectionId = new mongoose.Types.ObjectId(req.params.id);
-  const collectionId = req.params.id;
+  const collectionId = req.params.id.slice(1);
   console.log(collectionId);
   const links = await linkService.readAllByCollectionId(collectionId);
   res.json({ data: { links } });
