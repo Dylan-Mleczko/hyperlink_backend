@@ -95,7 +95,7 @@ export const addCollection = async (req, res) => {
 
 export const getUserCollections = async (req, res) => {
   const collections = await collectionService.readAllByUserId(req.user._id);
-  const colls = collections.map((collection) => {
+  const colls = collections?.map((collection) => {
     if (collection.image) collection.image = collection._id.toString();
     else collection.image = null;
 
