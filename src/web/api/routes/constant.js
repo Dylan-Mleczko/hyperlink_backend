@@ -35,12 +35,6 @@ const getTagRouterPath = root + '/tag/:id';
 const updateTagRouterPath = root + '/tag/:id';
 const deleteTagRouterPath = root + '/tag/:id';
 
-const newItemRouterPath = root + '/item/new';
-const allItemRouterPath = root + '/item/all';
-const getItemRouterPath = root + '/item/:id';
-const updateItemRouterPath = root + '/item/:id';
-const deleteItemRouterPath = root + '/item/:id';
-
 export {
   loginRouterPath,
   logoutRouterPath,
@@ -69,11 +63,6 @@ export {
   getTagRouterPath,
   updateTagRouterPath,
   deleteTagRouterPath,
-  newItemRouterPath,
-  getItemRouterPath,
-  allItemRouterPath,
-  updateItemRouterPath,
-  deleteItemRouterPath,
   verifyEmailAndCreateUser,
   scrapeLinkRouterPath,
 };
