@@ -15,10 +15,6 @@ const authOpts = {
 const jwtAuthConfig = new Strategy(authOpts, async (req, jwtPayload, done) => {
   // const user = await User.findOne({ email: jwtPayload.email }, '_id email name jti active').lean();
   const user = await User.findOne({ email: jwtPayload.sub });
-  console.log(
-    '---------------------------- Access-Token Found in Request Cookie: ' +
-      req.cookies['access_token']
-  );
   if (!user) return done(null, false, jwtPayload);
 
   if (user.jti === jwtPayload.jti && user.active === true) {

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import Joi from 'joi';
+// import Joi from 'joi';
 import { Item } from '../../models';
 
 export const getAllItems = async () => await Item.find();

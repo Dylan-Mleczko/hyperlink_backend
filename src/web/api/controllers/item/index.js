@@ -1,22 +1,23 @@
 import * as itemService from '../../../../services/item';
-import Joi from 'joi';
+// import Joi from 'joi';
 
 const validateItem = (item) => {
-  // data validation
-  const itemDetailSchema = Joi.object().keys({
-    id: Joi.string().min(0).max(63),
-    name: Joi.string().min(0).max(63).required(),
-    description: Joi.string().min(0).max(400),
-    date: Joi.string().min(0).max(200),
-    link: Joi.string().min(0).max(400),
-  });
-  const itemDetailError = itemDetailSchema.validate(itemDetails).error;
-  if (itemDetailError) {
-    return res.status(422).json({
-      message: itemDetailError.details[0].message,
-      data: null,
-    });
-  }
+  // // data validation
+  console.log(item);
+  // const itemDetailSchema = Joi.object().keys({
+  //   id: Joi.string().min(0).max(63),
+  //   name: Joi.string().min(0).max(63).required(),
+  //   description: Joi.string().min(0).max(400),
+  //   date: Joi.string().min(0).max(200),
+  //   link: Joi.string().min(0).max(400),
+  // });
+  // const itemDetailError = itemDetailSchema.validate(itemDetails).error;
+  // if (itemDetailError) {
+  //   return res.status(422).json({
+  //     message: itemDetailError.details[0].message,
+  //     data: null,
+  //   });
+  // }
 };
 
 export const getAllItems = async (req, res) => {
@@ -31,8 +32,8 @@ export const getItem = async (req, res) => {
 
 export const addItem = async (req, res) => {
   validateItem(req.body.itemDetails);
-  const item = await itemService.createItem(itemDetails);
-  res.json({ data: { item } });
+  // const item = await itemService.createItem(itemDetails);
+  res.json({ data: {} });
 };
 
 export const updateItem = async (req, res) => {

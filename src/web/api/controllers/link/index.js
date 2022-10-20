@@ -1,9 +1,11 @@
 import * as linkService from '../../../../services/link';
 import Joi from 'joi';
+// import mongoose from 'mongoose';
 
 export const addLink = async (req, res) => {
-  const data = req.body;
-  const linkDetails = data.linkDetails;
+  const linkDetails = req.body;
+  // const linkDetails = data.linkDetails;
+  // console.log(data);
 
   // data validation
   const linkDetailSchema = Joi.object().keys({
@@ -42,7 +44,18 @@ export const addLink = async (req, res) => {
 };
 
 export const getAllLink = async (req, res) => {
-  const links = await linkService.readAll();
+  // const collections = await collectionService.readAllByUserId(req.user._id);
+  // const colls = collections?.map((collection) => {
+  //   if (collection.image) collection.image = collection._id.toString();
+  //   else collection.image = null;
+
+  //   return collection;
+  // });
+  // res.json({ data: { collections: colls } });
+  // const collectionId = new mongoose.Types.ObjectId(req.params.id);
+  const collectionId = req.params.id.slice(1);
+  console.log(collectionId);
+  const links = await linkService.readAllByCollectionId(collectionId);
   res.json({ data: { links } });
 };
 
