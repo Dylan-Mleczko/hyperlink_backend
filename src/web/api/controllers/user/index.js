@@ -67,7 +67,7 @@ export const getAllUser = async (_, res) => {
 
 export const getUser = async (req, res) => {
   const user = await userService.readById(req.user._id);
-  const result = { email: user.email, name: user.name };
+  const result = { email: user?.email, name: user?.name };
   res.json({ user: result });
 };
 
@@ -120,14 +120,15 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   console.log('--- User Router [passportAuth]---');
   try {
-    const token = req.cookies['access_token'];
+    // const token = req.cookies['access_token'];
 
     // logger.debug(usersRouterPath);
-    console.log(`token info: ${JSON.stringify(token)}`);
-    await revokeToken(token);
-    res.clearCookie('access_token').status(200).json({ message: 'Successfully logged out' });
+    // console.log(`token info: ${JSON.stringify(token)}`);
+    console.log('logout: ' + req.user._id);
+    await revokeToken(req.user);
+    res.status(200).json({ message: 'Successfully logged out' });
   } catch (err) {
-    return res.status(404).json({
+    return res.status(401).json({
       error: err,
     });
   }

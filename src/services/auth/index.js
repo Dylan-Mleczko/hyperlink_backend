@@ -37,9 +37,9 @@ export const decodeToken = (tokenString) => {
   }
 };
 
-export const revokeToken = async (token) => {
+export const revokeToken = async (user) => {
   // const token = decodeToken(tokenString);
-  await User.updateOne({ _id: token._id }, { jti: nanoid(16) });
+  await User.updateOne({ _id: user._id }, { jti: nanoid(16) });
 };
 
 export const auth = async (loginInfo) => {
