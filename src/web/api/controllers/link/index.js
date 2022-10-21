@@ -5,12 +5,13 @@ import Joi from 'joi';
 export const addLink = async (req, res) => {
   const linkDetails = req.body;
   // const linkDetails = data.linkDetails;
-  // console.log(data);
+  console.log(linkDetails);
 
   // data validation
   const linkDetailSchema = Joi.object().keys({
     uri: Joi.string().min(0).required().uri(),
     name: Joi.string().min(0).max(127),
+    description: Joi.string().min(0).max(500),
     collection_id: Joi.string(),
   });
 
@@ -29,6 +30,7 @@ export const addLink = async (req, res) => {
   const newLink = await linkService.create({
     uri: linkDetails.uri,
     name: linkDetails.name,
+    description: linkDetails.description,
     collection_id: linkDetails.collection_id,
   });
 
