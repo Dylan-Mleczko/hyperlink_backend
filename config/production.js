@@ -7,6 +7,10 @@ module.exports = {
     name: 'HyperLink',
     port: process.env.PORT || 3001,
   },
+  sendgrid:{
+    sendgridApiKey: process.env.SENDGRID_API_KEY,
+    senderEmail: process.env.SENDEREMAIL,
+  },
   db: {
     name: 'Local MongoDB',
     uri: 'mongodb+srv://hyperlink:dktkl3001@cluster0.vufvthw.mongodb.net/?retryWrites=true&w=majority',
