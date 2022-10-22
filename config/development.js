@@ -3,6 +3,10 @@ module.exports = {
   logger: {
     logLevel: 'debug',
   },
+  sendgrid:{
+    sendgridApiKey: '',
+    senderEmail: '',
+  },
   server: {
     name: 'Development Web',
     port: process.env.PORT || 3001,
