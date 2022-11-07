@@ -67,7 +67,35 @@ export const getLink = async (req, res) => {
 };
 
 export const updateLink = async (req, res) => {
-  const newLink = await linkService.update(req.params.id, req.body.linkDetails);
+  const linkDetails = req.body.linkDetails;
+  // data validation
+  const linkDetailSchema = Joi.object().keys({
+    uri: Joi.string().min(0).required().uri(),
+    name: Joi.string().min(0).max(127),
+    description: Joi.string().min(0).max(500),
+  });
+
+  const linkDetailError = linkDetailSchema.validate(linkDetails).error;
+
+  if (!(linkDetailError == null)) {
+    const errorMsg = linkDetailError.details[0].message;
+    console.log(errorMsg);
+    res.status(422).json({
+      message: errorMsg,
+      data: null,
+    });
+    return;
+  }
+
+  const newLink = await linkService.update(req.params.id, linkDetails);
+  console.log(req.body);
+  if (newLink == null) {
+    res.status(422).json({
+      message: 'failed to create link',
+      data: null,
+    });
+    return;
+  }
   res.json({ data: { newLink } });
 };
 
