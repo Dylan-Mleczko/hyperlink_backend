@@ -29,6 +29,10 @@ export const update = async (collectionId, props) => {
     collection.favourite = props.favourite;
   }
 
+  if (props.click_count) {
+    collection.click_count = props.click_count;
+  }
+
   await collection.save();
 
   const updatedCollection = await Collection.findById(collectionId);
