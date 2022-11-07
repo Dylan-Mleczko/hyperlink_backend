@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
 import Joi from 'joi';
 import mongoose from 'mongoose';
+import { randomize } from 'randomatic';
 
 import * as userService from '../../../../services/user';
 import { auth, revokeToken } from '../../../../services/auth';
-import { sendEmail } from '../../../../utils/email/index';
+import { sendEmail, sendVerifyEmail } from '../../../../utils/email/index';
 import { isHashedPassword, hashPassword } from '../../../../services/auth';
+
+let verifyCode;
 
 export const registerUser = async (req, res) => {
   const data = req.body.data;
@@ -40,6 +43,12 @@ export const registerUser = async (req, res) => {
     return;
   }
 
+  verifyCode = randomize('Aa0!', 6);
+
+  await sendVerifyEmail(authInfo.email, verifyCode);
+  res.status(200).json('Email sent');
+
+  // DO NOT CREATE USER UNTIL CODE MATCHES, MOVE THIS CODE CAREFULLY TO VERIFY CONTROLLER, OTHERWISE USER WILL BE CREATED EVEN IF CODES DO NOT MATCH
   // create new user with authInfo and patient type and id
   const newUser = await userService.create({
     email: authInfo.email,
@@ -189,6 +198,20 @@ export const endResestPassword = async (req, res) => {
   } catch (err) {
     return res.status(404).json({
       error: err,
+    });
+  }
+};
+
+export const verifyEmail = async (req, res) => {
+  const { code } = req.body.data;
+
+  if (code === verifyCode) {
+    return res.status(200).json('User Verified');
+  } else {
+    console.log(`${code} does not match with ${verifyCode}`);
+    return res.status(404).json({
+      error: 'Unauthorized',
+      message: 'The code does not match',
     });
   }
 };
