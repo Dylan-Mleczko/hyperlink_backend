@@ -6,7 +6,7 @@ const registerRouterPath = root + '/register';
 const startResestPassword = root + '/start/reset';
 const endResestPassword = root + '/end/reset';
 const checkEmailExists = root + '/check/email';
-const verifyEmail = root + '/verify/email';
+const verifyEmailAndCreateUser = root + '/register/verify';
 
 // const newUserRouterPath = root + '/user/new';
 const allUserRouterPath = root + '/user/all';
@@ -73,5 +73,5 @@ export {
   allItemRouterPath,
   updateItemRouterPath,
   deleteItemRouterPath,
-  verifyEmail,
+  verifyEmailAndCreateUser,
 };

@@ -47,26 +47,6 @@ export const registerUser = async (req, res) => {
 
   await sendVerifyEmail(authInfo.email, verifyCode);
   res.status(200).json('Email sent');
-
-  // DO NOT CREATE USER UNTIL CODE MATCHES, MOVE THIS CODE CAREFULLY TO VERIFY CONTROLLER, OTHERWISE USER WILL BE CREATED EVEN IF CODES DO NOT MATCH
-  // create new user with authInfo and patient type and id
-  const newUser = await userService.create({
-    email: authInfo.email,
-    first_name: userDetails.firstName,
-    last_name: userDetails.lastName,
-    password: authInfo.password,
-  });
-
-  console.log(`newUser: ${newUser}`);
-  if (newUser == null) {
-    res.status(422).json({
-      message: 'failed to create user',
-      data: null,
-    });
-    return;
-  }
-
-  res.json({ data: { user: newUser } });
 };
 
 export const getAllUser = async (_, res) => {
@@ -169,7 +149,7 @@ export const startResestPassword = async (req, res) => {
     return res.status(200).json('Email sent');
   } else {
     console.log(`User with email ${email} does not exist`);
-    return res.status(404).json({
+    return res.status(401).json({
       error: 'Unauthorized',
       message: `User with email ${email} does not exist`,
     });
@@ -202,14 +182,35 @@ export const endResestPassword = async (req, res) => {
   }
 };
 
-export const verifyEmail = async (req, res) => {
+export const verifyEmailAndCreateUser = async (req, res) => {
+  const data = req.body.data;
+  const userDetails = data.userDetails;
+  const authInfo = data.authInfo;
+
   const { code } = req.body.data;
 
   if (code === verifyCode) {
-    return res.status(200).json('User Verified');
+    //res.status(200).json('User Verified');
+    const newUser = await userService.create({
+      email: authInfo.email,
+      first_name: userDetails.firstName,
+      last_name: userDetails.lastName,
+      password: authInfo.password,
+    });
+
+    console.log(`newUser: ${newUser}`);
+    if (newUser == null) {
+      res.status(422).json({
+        message: 'failed to create user',
+        data: null,
+      });
+      return;
+    }
+
+    res.json({ data: { user: newUser } });
   } else {
     console.log(`${code} does not match with ${verifyCode}`);
-    return res.status(404).json({
+    return res.status(401).json({
       error: 'Unauthorized',
       message: 'The code does not match',
     });
