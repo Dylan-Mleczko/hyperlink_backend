@@ -138,7 +138,7 @@ export const scrapeLink = async (req, res) => {
   } catch (err) {
     console.log('scrape failed by', err);
     res.status(422).json({
-      message: 'failed to create link',
+      message: 'failed to scrape link',
       data: null,
     });
   }
