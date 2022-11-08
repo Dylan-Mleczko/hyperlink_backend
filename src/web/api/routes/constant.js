@@ -28,6 +28,7 @@ const allLinkRouterPath = root + '/link/all/:id';
 const getLinkRouterPath = root + '/link/:id';
 const updateLinkRouterPath = root + '/link/:id';
 const deleteLinkRouterPath = root + '/link/:id';
+const scrapeLinkRouterPath = root + '/link/scrape';
 
 const newTagRouterPath = root + '/tag/new';
 const getTagRouterPath = root + '/tag/:id';
@@ -74,4 +75,5 @@ export {
   updateItemRouterPath,
   deleteItemRouterPath,
   verifyEmailAndCreateUser,
+  scrapeLinkRouterPath,
 };

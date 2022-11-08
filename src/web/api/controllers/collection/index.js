@@ -140,9 +140,67 @@ export const getCollectionImage = async (req, res) => {
 };
 
 export const updateCollection = async (req, res) => {
-  console.log(updateCollection);
-  const collection = await collectionService.update(req.params.id, req.body.collectionDetails);
-  res.json({ data: { collection } });
+  // if just increment the click_count or favourite then it will just update and end
+  console.log(req.body);
+  if (req.body.collectionDetails) {
+    const collection = await collectionService.update(req.params.id, req.body.collectionDetails);
+    res.json({ data: { collection } });
+  } else {
+    const data = req.body;
+
+    // console.log(data);
+    const collectionDetails = data.formData;
+
+    // console.log(collectionDetails);
+    console.log(getImageType(collectionDetails.image));
+
+    // data validation
+    const collectionDetailSchema = Joi.object().keys({
+      name: Joi.string().min(0).max(127).required(),
+      description: Joi.string().min(0).max(4095),
+      tags: Joi.string(),
+      image: Joi.string(),
+    });
+
+    const collectionDetailError = collectionDetailSchema.validate(collectionDetails).error;
+
+    if (!(collectionDetailError == null)) {
+      const errorMsg = collectionDetailError.details[0].message;
+      console.log(errorMsg);
+      res.status(422).json({
+        message: errorMsg,
+        data: null,
+      });
+      return;
+    }
+    console.log(updateCollection);
+    const updateData = {
+      name: collectionDetails.name,
+      description: collectionDetails.description,
+      tags: collectionDetails.tags,
+      image: base64ImageToBuffer(collectionDetails.image),
+      image_type: getImageType(collectionDetails.image),
+    };
+
+    const updatedCollection = await collectionService.update(req.params.id, updateData);
+    if (updatedCollection == null) {
+      res.status(422).json({
+        message: 'failed to update collection',
+        data: null,
+      });
+      return;
+    }
+
+    // const base64Img = bufferToBase64Image(
+    //   newCollection.image.data,
+    //   newCollection.image_type
+    // );
+    // console.log(base64Img.substring(0, 50));
+
+    updatedCollection.image =
+      updatedCollection.image != null ? updatedCollection._id.toString() : null;
+    res.json({ data: { collection: updatedCollection } });
+  }
 };
 
 export const deleteCollection = async (req, res) => {
