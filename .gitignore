@@ -13,6 +13,7 @@ logs/
 
 tmp/
 .env
+.cache/
 .vscode/
 globalConfig.json
 
