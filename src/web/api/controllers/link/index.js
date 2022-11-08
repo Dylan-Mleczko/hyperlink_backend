@@ -1,5 +1,6 @@
 import * as linkService from '../../../../services/link';
 import Joi from 'joi';
+import Puppeteer from 'puppeteer';
 // import mongoose from 'mongoose';
 
 export const addLink = async (req, res) => {
@@ -102,4 +103,45 @@ export const updateLink = async (req, res) => {
 export const deleteLink = async (req, res) => {
   const newLink = await linkService.deleteById({ linkId: req.params.id });
   res.json({ data: { newLink } });
+};
+
+export const scrapeLink = async (req, res) => {
+  console.log('link scraped!!');
+  const link = req.body.domain;
+  var browser;
+  var data = {};
+
+  console.log(link);
+  try {
+    const scrape = async () => {
+      browser = await Puppeteer.launch({
+        headless: true,
+        args: ['--disable-setuid-sandbox'],
+        ignoreHTTPSErrors: true,
+      });
+      // const browser = await browserObject.;
+
+      let page = await browser.newPage();
+      console.log(`Navigating to ${link}...`);
+      await page.goto(link);
+      let scrapedData = {};
+      scrapedData.title = await page.title();
+      const descMeta = await page.$('[name=description]');
+      if (descMeta) {
+        scrapedData.description = await (await descMeta.getProperty('content')).jsonValue();
+      }
+      await browser.close();
+      return scrapedData;
+    };
+
+    data = await scrape();
+  } catch (err) {
+    console.log('scrape failed by', err);
+    res.status(422).json({
+      message: 'failed to create link',
+      data: null,
+    });
+  }
+  console.log(data);
+  res.json({ data });
 };
