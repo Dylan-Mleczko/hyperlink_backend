@@ -9,7 +9,7 @@ module.exports = {
   },
   server: {
     name: 'Development Web',
-    port: process.env.PORT || 3001,
+    port: process.env.PORT || 3050,
   },
   db: {
     name: 'Local MongoDB',

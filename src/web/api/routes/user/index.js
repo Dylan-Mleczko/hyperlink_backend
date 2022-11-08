@@ -10,6 +10,7 @@ import {
   startResestPassword,
   endResestPassword,
   checkEmailExists,
+  verifyEmailAndCreateUser,
 } from '../constant';
 
 import { userController } from '../../controllers';
@@ -23,6 +24,7 @@ router.get(logoutRouterPath, [passportAuth], userController.logout);
 router.post(startResestPassword, userController.startResestPassword);
 router.post(endResestPassword, userController.endResestPassword);
 router.post(checkEmailExists, userController.checkEmailExists);
+router.post(verifyEmailAndCreateUser, userController.verifyEmailAndCreateUser);
 
 router.get(allUserRouterPath, [passportAuth], userController.getAllUser);
 router.get(getUserRouterPath, [passportAuth], userController.getUser);
