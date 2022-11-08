@@ -23,7 +23,7 @@ const getVerify = (email, code) => {
     to: email,
     from: config.sendgrid.senderEmail,
     subject: 'Verify Email',
-    text: `To verify your email, kindly enter this code in your browser: ${code}`,
+    text: `To verify your email, kindly enter this code in your browser:\n ${code}`,
   };
 };
 

@@ -4,12 +4,12 @@ module.exports = {
     logLevel: 'debug',
   },
   sendgrid:{
-    sendgridApiKey: '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',
-    senderEmail: 'jaiswalk@student.unimelb.edu.au',
+    sendgridApiKey: '',
+    senderEmail: '',
   },
   server: {
     name: 'Development Web',
-    port: process.env.PORT || 3001,
+    port: process.env.PORT || 3050,
   },
   db: {
     name: 'Local MongoDB',
