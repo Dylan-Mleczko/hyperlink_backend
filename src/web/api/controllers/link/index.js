@@ -116,7 +116,7 @@ export const scrapeLink = async (req, res) => {
     const scrape = async () => {
       browser = await Puppeteer.launch({
         headless: true,
-        args: ['--disable-setuid-sandbox'],
+        args: ['--disable-setuid-sandbox', '--no-sandbox'],
         ignoreHTTPSErrors: true,
       });
       // const browser = await browserObject.;
