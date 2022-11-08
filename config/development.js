@@ -4,8 +4,8 @@ module.exports = {
     logLevel: 'debug',
   },
   sendgrid:{
-    sendgridApiKey: '',
-    senderEmail: '',
+    sendgridApiKey: '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',
+    senderEmail: 'jaiswalk@student.unimelb.edu.au',
   },
   server: {
     name: 'Development Web',
