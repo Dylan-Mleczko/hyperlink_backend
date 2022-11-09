@@ -6,7 +6,7 @@ sendGridMail.setApiKey(config.sendgrid.sendgridApiKey);
 // const PORT = config.server.port;
 
 const setUrl = (email) => {
-  return `http://localhost:3000/password/end/reset?email=${email}`;
+  return `https://hyper-link-one.vercel.app/password/end/reset?email=${email}`;
 };
 
 const getMessage = (email) => {
