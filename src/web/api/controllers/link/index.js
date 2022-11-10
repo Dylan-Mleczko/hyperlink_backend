@@ -108,22 +108,68 @@ export const deleteLink = async (req, res) => {
 export const scrapeLink = async (req, res) => {
   console.log('link scraped!!');
   const link = req.body.domain;
+  // data validation
+  const linkDetails = { uri: link };
+  const linkDetailSchema = Joi.object().keys({
+    uri: Joi.string().min(0).required().uri(),
+  });
+
+  const linkDetailError = linkDetailSchema.validate(linkDetails).error;
+
+  if (!(linkDetailError == null)) {
+    const errorMsg = linkDetailError.details[0].message;
+    console.log(errorMsg);
+    res.status(422).json({
+      message: errorMsg,
+      data: null,
+    });
+    return;
+  }
   var browser;
   var data = {};
 
   console.log(link);
-  try {
-    const scrape = async () => {
-      browser = await Puppeteer.launch({
-        headless: true,
-        args: ['--disable-setuid-sandbox', '--no-sandbox'],
-        ignoreHTTPSErrors: true,
-      });
-      // const browser = await browserObject.;
+  const scrape = async () => {
+    browser = await Puppeteer.launch({
+      headless: true,
+      args: ['--disable-setuid-sandbox', '--no-sandbox'],
+      ignoreHTTPSErrors: true,
+    });
+    // const browser = await browserObject.;
 
-      let page = await browser.newPage();
+    let page = await browser.newPage();
+
+    // // Catch all failed requests like 4xx..5xx status codes
+    // page.on('requestfailed', (request) => {
+    //   console.log(
+    //     `url: ${request.url()}, errText: ${
+    //       request.failure().errorText
+    //     }, method: ${request.method()}`
+    //   );
+    // });
+    // // Catch console log errors
+    // page.on('pageerror', (err) => {
+    //   console.log(`Page error: ${err.toString()}`);
+    // });
+    // // Catch all console messages
+    // page.on('console', (msg) => {
+    //   console.log('Logger:', msg.type());
+    //   console.log('Logger:', msg.text());
+    //   console.log('Logger:', msg.location());
+    // });
+    try {
+      // try {
       console.log(`Navigating to ${link}...`);
       await page.goto(link);
+      // } catch (e) {
+      //   console.log('scrape failed by', e);
+      //   // res.status(422).json({
+      //   //   message: 'failed to scrape link',
+      //   //   data: null,
+      //   // });
+      //   // return;
+      // }
+      // await page.waitFor(10000); // To be sure all exceptions logged and handled
       let scrapedData = {};
       scrapedData.title = await page.title();
       const descMeta = await page.$('[name=description]');
@@ -132,16 +178,19 @@ export const scrapeLink = async (req, res) => {
       }
       await browser.close();
       return scrapedData;
-    };
+    } catch (err) {
+      console.log('scrape failed by', err);
+      res.status(422).json({
+        message: 'failed to scrape link',
+        data: null,
+      });
+      return;
+    }
+  };
 
-    data = await scrape();
-  } catch (err) {
-    console.log('scrape failed by', err);
-    res.status(422).json({
-      message: 'failed to scrape link',
-      data: null,
-    });
+  data = await scrape();
+  if (data) {
+    console.log(data);
+    res.json({ data });
   }
-  console.log(data);
-  res.json({ data });
 };
